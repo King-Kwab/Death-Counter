@@ -1,0 +1,627 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DEATH COUNTER — DASHBOARD STYLES
+   Dark theme · Glassmorphism · Crimson/Purple palette · Micro-animations
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Reset & Base ────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+
+  --accent-crimson: #e63946;
+  --accent-crimson-glow: rgba(230, 57, 70, 0.4);
+  --accent-purple: #7b2d8e;
+  --accent-purple-glow: rgba(123, 45, 142, 0.35);
+  --accent-gold: #f4a261;
+
+  --text-primary: #f1f1f1;
+  --text-secondary: rgba(241, 241, 241, 0.55);
+  --text-muted: rgba(241, 241, 241, 0.3);
+
+  --font-main: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-main);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(123, 45, 142, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(230, 57, 70, 0.1) 0%, transparent 60%),
+    var(--bg-deep);
+  min-height: 100vh;
+}
+
+/* ─── Background Particles ────────────────────────────────────────────────────── */
+.bg-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--accent-crimson);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(1);
+  }
+}
+
+/* ─── Dashboard Container ─────────────────────────────────────────────────────── */
+.dashboard {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+}
+
+/* ─── Header ──────────────────────────────────────────────────────────────────── */
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  animation: pulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px var(--accent-crimson-glow));
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.header-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--accent-crimson), var(--accent-gold), var(--accent-crimson));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.header-subtitle {
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ─── Totals Bar ──────────────────────────────────────────────────────────────── */
+.totals-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 32px;
+  margin-bottom: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.totals-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.totals-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.totals-value {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent-crimson);
+  text-shadow: 0 0 20px var(--accent-crimson-glow);
+  transition: var(--transition-fast);
+}
+
+.totals-divider {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: 14px;
+}
+
+/* ─── Players Grid ────────────────────────────────────────────────────────────── */
+.players-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .players-grid {
+    gap: 12px;
+  }
+}
+
+/* ─── Player Card ─────────────────────────────────────────────────────────────── */
+.player-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.player-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle at 50% 0%, var(--accent-crimson-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.player-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-2px);
+}
+
+.player-card:hover::before {
+  opacity: 0.15;
+}
+
+/* Death flash animation */
+.player-card.death-flash {
+  animation: deathFlash 0.8s ease-out;
+}
+
+.player-card.death-flash::before {
+  opacity: 0.5 !important;
+}
+
+@keyframes deathFlash {
+  0% {
+    border-color: var(--accent-crimson);
+    box-shadow: 0 0 30px var(--accent-crimson-glow), inset 0 0 30px rgba(230, 57, 70, 0.1);
+  }
+  100% {
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
+}
+
+/* ─── Avatar ──────────────────────────────────────────────────────────────────── */
+.player-avatar {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  flex-shrink: 0;
+}
+
+.player-card:hover .player-avatar {
+  border-color: var(--accent-crimson);
+  box-shadow: 0 0 20px var(--accent-crimson-glow);
+}
+
+.player-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-crimson));
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: white;
+}
+
+/* ─── Player Name ─────────────────────────────────────────────────────────────── */
+.player-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 240px;
+  flex-shrink: 0;
+  margin-right: 16px;
+}
+
+.death-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ─── Death Count Display ─────────────────────────────────────────────────────── */
+.death-display {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.death-session {
+  font-family: var(--font-mono);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  transition: var(--transition-fast);
+}
+
+.death-separator {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.death-total {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  line-height: 1;
+  transition: var(--transition-fast);
+}
+
+/* Pop animation on increment */
+.death-pop {
+  animation: deathPop 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+@keyframes deathPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); color: var(--accent-crimson); }
+  100% { transform: scale(1); }
+}
+
+/* ─── Death Labels ────────────────────────────────────────────────────────────── */
+.death-labels {
+  display: flex;
+  gap: 24px;
+  margin-top: 4px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.death-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ─── Skull Burst (death particle effect) ─────────────────────────────────────── */
+.skull-burst {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.2rem;
+  z-index: 10;
+  animation: skullFly 1s ease-out forwards;
+}
+
+@keyframes skullFly {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(var(--rot));
+  }
+}
+
+/* ─── Admin Panel ─────────────────────────────────────────────────────────────── */
+.admin-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.admin-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.admin-toggle:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--glass-border-hover);
+  color: var(--text-primary);
+  transform: rotate(45deg);
+}
+
+.admin-dropdown {
+  display: none;
+  position: absolute;
+  bottom: 56px;
+  right: 0;
+  width: 280px;
+  padding: 20px;
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: dropdownIn 0.25s ease-out;
+}
+
+.admin-dropdown.open {
+  display: block;
+}
+
+@keyframes dropdownIn {
+  0% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.admin-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.admin-field {
+  margin-bottom: 14px;
+}
+
+.admin-field label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.admin-field input {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.admin-field input:focus {
+  border-color: var(--accent-crimson);
+  box-shadow: 0 0 10px rgba(230, 57, 70, 0.15);
+}
+
+.admin-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-warning {
+  background: rgba(244, 162, 97, 0.12);
+  border-color: rgba(244, 162, 97, 0.3);
+  color: var(--accent-gold);
+}
+
+.btn-warning:hover {
+  background: rgba(244, 162, 97, 0.22);
+  border-color: rgba(244, 162, 97, 0.5);
+}
+
+.btn-danger {
+  background: rgba(230, 57, 70, 0.12);
+  border-color: rgba(230, 57, 70, 0.3);
+  color: var(--accent-crimson);
+}
+
+.btn-danger:hover {
+  background: rgba(230, 57, 70, 0.22);
+  border-color: rgba(230, 57, 70, 0.5);
+}
+
+/* ─── Connection Status ───────────────────────────────────────────────────────── */
+.connection-status {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  z-index: 100;
+  transition: var(--transition-smooth);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  transition: var(--transition-smooth);
+}
+
+.connection-status.connected .status-dot {
+  background: #2ecc71;
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+}
+
+.connection-status.disconnected .status-dot {
+  background: var(--accent-crimson);
+  box-shadow: 0 0 8px var(--accent-crimson-glow);
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ─── Toast Notification ──────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 12px 24px;
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.toast.success {
+  border-color: rgba(46, 204, 113, 0.4);
+  color: #2ecc71;
+}
+
+.toast.error {
+  border-color: rgba(230, 57, 70, 0.4);
+  color: var(--accent-crimson);
+}
