@@ -2,19 +2,19 @@
   "players": {
     "player1": {
       "sessionDeaths": 2,
-      "totalDeaths": 22
+      "totalDeaths": 32
     },
     "player2": {
       "sessionDeaths": 0,
-      "totalDeaths": 0
+      "totalDeaths": 18
     },
     "player3": {
       "sessionDeaths": 0,
-      "totalDeaths": 0
+      "totalDeaths": 47
     },
     "player4": {
       "sessionDeaths": 0,
-      "totalDeaths": 0
+      "totalDeaths": 32
     }
   }
 }
