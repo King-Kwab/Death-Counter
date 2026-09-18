@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: death-counter
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: PLAYER1_KEY
+        generateValue: true
+      - key: PLAYER2_KEY
+        generateValue: true
+      - key: PLAYER3_KEY
+        generateValue: true
+      - key: PLAYER4_KEY
+        generateValue: true
+      - key: ADMIN_KEY
+        generateValue: true

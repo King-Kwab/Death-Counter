@@ -1,0 +1,20 @@
+{
+  "players": {
+    "player1": {
+      "sessionDeaths": 2,
+      "totalDeaths": 22
+    },
+    "player2": {
+      "sessionDeaths": 0,
+      "totalDeaths": 0
+    },
+    "player3": {
+      "sessionDeaths": 0,
+      "totalDeaths": 0
+    },
+    "player4": {
+      "sessionDeaths": 0,
+      "totalDeaths": 0
+    }
+  }
+}
