@@ -190,13 +190,15 @@ io.on('connection', (socket) => {
 
 // ─── Start Server ───────────────────────────────────────────────────────────────
 
-server.listen(config.port, () => {
+const PORT = process.env.PORT || config.port;
+
+server.listen(PORT, '0.0.0.0', () => {
   console.log('');
   console.log('═══════════════════════════════════════════════════');
   console.log('  💀  DEATH COUNTER SERVER  💀');
   console.log('═══════════════════════════════════════════════════');
-  console.log(`  Dashboard:  http://localhost:${config.port}`);
-  console.log(`  API:        http://localhost:${config.port}/api/counters`);
+  console.log(`  Dashboard:  http://localhost:${PORT}`);
+  console.log(`  API:        http://localhost:${PORT}/api/counters`);
   console.log('═══════════════════════════════════════════════════');
   console.log('');
   console.log('  Players:');
